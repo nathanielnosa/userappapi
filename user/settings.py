@@ -1,5 +1,6 @@
-
+import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,12 +10,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9_#=_w=i-1&h(h&g36s)uiqy*&=3@e$_^-3@$bk@q@jta4r@=v'
+SECRET_KEY = os.environ.get('SECRET_KEY','django-insecure-9_#=_w=i-1&h(h&g36s)uiqy*&=3@e$_^-3@$bk@q@jta4r@=v')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG','True')=='True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost:8000','https://userappapi.onrender.com']
 
 
 # Application definition
@@ -65,12 +66,17 @@ WSGI_APPLICATION = 'user.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.environ.get('DATABASEURL'):
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ['DATABASEURL'])
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
