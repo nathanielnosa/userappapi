@@ -13,9 +13,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY','django-insecure-9_#=_w=i-1&h(h&g36s)uiqy*&=3@e$_^-3@$bk@q@jta4r@=v')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG','True')=='True'
+DEBUG = os.environ.get('DEBUG','False')=='True'
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost:8000','https://userappapi.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost:8000','https://userappapi.onrender.com','userappapi.onrender.com']
 
 
 # Application definition
